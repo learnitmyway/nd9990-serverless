@@ -28,7 +28,6 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
-  # TODO: Configure this function
   GetTodos:
     handler: src/lambda/http/getTodos.handler
     events:
@@ -36,13 +35,15 @@ functions:
           method: get
           path: todos
 
-  # TODO: Configure this function
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
     events:
       - http:
           method: post
           path: todos
+          request:
+            schema:
+              application/json: ${file(models/create-todo-request.json)}
 
   # TODO: Configure this function
   UpdateTodo:
