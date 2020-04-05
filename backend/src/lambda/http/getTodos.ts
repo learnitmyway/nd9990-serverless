@@ -7,6 +7,9 @@ import {
 } from 'aws-lambda'
 import * as AWS from 'aws-sdk'
 
+import { createLogger } from '../../utils/logger'
+const logger = createLogger('getTodos')
+
 const docClient = new AWS.DynamoDB.DocumentClient()
 
 const todosTable = process.env.TODOS_TABLE
@@ -14,7 +17,7 @@ const todosTable = process.env.TODOS_TABLE
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
-  console.log('Processing event: ', event)
+  logger.info('Processing event: ', event)
 
   const result = await docClient
     .scan({
