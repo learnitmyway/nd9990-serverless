@@ -54,6 +54,7 @@ functions:
       - http:
           method: post
           path: todos
+          authorizer: Auth
           request:
             schema:
               application/json: ${file(models/create-todo-request.json)}
@@ -65,6 +66,7 @@ functions:
       - http:
           method: patch
           path: todos/{todoId}
+          authorizer: Auth
 
   # TODO: Configure this function
   DeleteTodo:
@@ -73,6 +75,7 @@ functions:
       - http:
           method: delete
           path: todos/{todoId}
+          authorizer: Auth
 
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
