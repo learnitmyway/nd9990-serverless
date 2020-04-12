@@ -13,6 +13,9 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
 
+  logs:
+    restApi: true
+
   environment:
     TODOS_TABLE: Todos-${self:provider.stage}
     IMAGES_S3_BUCKET: todo-images-${self:provider.stage}
