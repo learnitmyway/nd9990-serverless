@@ -4,9 +4,10 @@
 
 In `backend`:
 
-- `AUTH0_TENANT=${} serverless [command] --verbose --aws-profile serverless`
+- `AUTH0_TENANT=${} serverless [deploy|remove] --verbose --aws-profile serverless`
+- `OFFLINE=${} AUTH0_TENANT=${} serverless offline start --verbose --aws-profile serverless`
 
-Where `command` could be `deploy`, `offline` or `remove`
-and env vars look something like:
+Where env vars look something like:
 
 - `AUTH0_TENANT=dsalfkj12.eu`
+- `OFFLINE=false`

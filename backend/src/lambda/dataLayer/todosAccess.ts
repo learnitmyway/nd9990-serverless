@@ -36,5 +36,12 @@ export class TodoAccess {
 }
 
 function createDynamoDBClient() {
+  if (process.env.OFFLINE) {
+    console.log('********* Creating a local DynamoDB instance *********')
+    return new AWS.DynamoDB.DocumentClient({
+      region: 'localhost',
+      endpoint: 'http://localhost:8000'
+    })
+  }
   return new AWS.DynamoDB.DocumentClient()
 }
