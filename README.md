@@ -1,8 +1,14 @@
 # Serverless TODO
 
-## Useful commands
+## Auth0 Set up
 
-In `backend`:
+- callback url `http://localhost:3000/callback`
+
+## Client
+
+- Copy `.env.example` and fill in vars
+
+## Backend
 
 - `AUTH0_TENANT=${} serverless [command] --verbose --aws-profile serverless`
 
