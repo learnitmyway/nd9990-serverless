@@ -6,16 +6,12 @@ import {
   APIGatewayProxyHandler,
   APIGatewayProxyResult
 } from 'aws-lambda'
-import * as AWS from 'aws-sdk'
 
 import { createLogger } from '../../utils/logger'
 const logger = createLogger('createTodo')
 
-const docClient = new AWS.DynamoDB.DocumentClient()
-
-const todosTable = process.env.TODOS_TABLE
-
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
+import { TodoAccess } from '../dataLayer/todosAccess'
 
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
@@ -32,12 +28,7 @@ export const handler: APIGatewayProxyHandler = async (
     done: false
   }
 
-  await docClient
-    .put({
-      TableName: todosTable,
-      Item: newTodo
-    })
-    .promise()
+  await new TodoAccess().createTodo(newTodo)
 
   return {
     statusCode: 201,
