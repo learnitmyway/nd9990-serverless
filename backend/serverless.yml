@@ -17,6 +17,7 @@ provider:
     TODOS_TABLE: Todos-${self:provider.stage}
     IMAGES_S3_BUCKET: todo-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
+    AUTH0_TENANT: ${env:AUTH0_TENANT}
 
   iamRoleStatements:
     - Effect: Allow
@@ -45,6 +46,7 @@ functions:
       - http:
           method: get
           path: todos
+          authorizer: Auth
 
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
