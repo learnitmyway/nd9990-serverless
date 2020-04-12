@@ -43,6 +43,7 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
+  # DONE: Configure this function
   GetTodos:
     handler: src/lambda/http/getTodos.handler
     events:
@@ -50,7 +51,9 @@ functions:
           method: get
           path: todos
           authorizer: Auth
+          cors: true
 
+  # DONE: Configure this function
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
     events:
@@ -58,6 +61,7 @@ functions:
           method: post
           path: todos
           authorizer: Auth
+          cors: true
           request:
             schema:
               application/json: ${file(models/create-todo-request.json)}
@@ -70,6 +74,7 @@ functions:
           method: patch
           path: todos/{todoId}
           authorizer: Auth
+          cors: true
 
   # TODO: Configure this function
   DeleteTodo:
@@ -79,6 +84,7 @@ functions:
           method: delete
           path: todos/{todoId}
           authorizer: Auth
+          cors: true
 
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
