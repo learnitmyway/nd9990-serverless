@@ -1,4 +1,4 @@
-// TODO: Once your application is deployed, copy an API id here so that the frontend could interact with it
+// DONE: Once your application is deployed, copy an API id here so that the frontend could interact with it
 const apiId = process.env.REACT_APP_API_ID
 // export const apiEndpoint = `http://localhost:4000/dev`
 export const apiEndpoint = `https://${apiId}.execute-api.us-east-1.amazonaws.com/dev`

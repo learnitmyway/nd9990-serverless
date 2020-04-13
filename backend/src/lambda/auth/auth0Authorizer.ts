@@ -57,7 +57,7 @@ export const handler = async (
 async function verifyToken(authHeader: string): Promise<JwtPayload> {
   const token = getToken(authHeader)
 
-  // TODO: Implement token verification
+  // DONE: Implement token verification
   // You should implement it similarly to how it was implemented for the exercise for the lesson 5
   // You can read more about how to do this here: https://auth0.com/blog/navigating-rs256-and-jwks/
   var client = jwksClient({
