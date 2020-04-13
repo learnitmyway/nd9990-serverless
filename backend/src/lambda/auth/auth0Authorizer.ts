@@ -74,6 +74,7 @@ async function verifyToken(authHeader: string): Promise<JwtPayload> {
 
     const options = {
       issuer: `https://${process.env.AUTH0_TENANT}.auth0.com/`,
+      audience: process.env.CLIENT_ID,
       algorithms: ['RS256']
     }
     verify(token, getKey, options, function (err, decoded) {

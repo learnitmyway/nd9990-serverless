@@ -10,8 +10,9 @@
 
 ## Backend
 
-- `AUTH0_TENANT=${} serverless [deploy|offline|remove] --verbose --aws-profile serverless`
+- `AUTH0_TENANT=${} CLIENT_ID=${} serverless [deploy|offline|remove] --verbose --aws-profile serverless`
 
 Where env vars look something like:
 
 - `AUTH0_TENANT=dsalfkj12.eu`
+- `CLIENT_ID=ASDJALDSFJ234JADFS`
