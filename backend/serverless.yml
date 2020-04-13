@@ -22,6 +22,7 @@ provider:
     IMAGES_S3_BUCKET: todo-images-${self:provider.stage}
     SIGNED_URL_EXPIRATION: 300
     AUTH0_TENANT: ${env:AUTH0_TENANT}
+    CLIENT_ID: ${env:CLIENT_ID}
 
   iamRoleStatements:
     - Effect: Allow
