@@ -85,12 +85,15 @@ functions:
           authorizer: Auth
           cors: true
 
+  # DONE: Configure this function
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
     events:
       - http:
           method: post
           path: todos/{todoId}/attachment
+          authorizer: Auth
+          cors: true
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -133,6 +136,19 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.IMAGES_S3_BUCKET}
+        CorsConfiguration:
+          CorsRules:
+            - AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
 
     BucketPolicy:
       Type: AWS::S3::BucketPolicy
