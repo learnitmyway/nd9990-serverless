@@ -1,6 +1,6 @@
 import 'source-map-support/register'
 
-import * as uuid from 'uuid'
+import { v4 } from 'uuid'
 import {
   APIGatewayProxyEvent,
   APIGatewayProxyHandler,
@@ -20,7 +20,7 @@ export const handler: APIGatewayProxyHandler = async (
   logger.info('Processing event: ', event)
 
   const createdAt = new Date().toISOString()
-  const todoId = uuid.v4()
+  const todoId = v4()
   const parsedBody = JSON.parse(event.body)
   const newTodo: TodoItem = {
     ...parsedBody,

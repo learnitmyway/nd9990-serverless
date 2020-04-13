@@ -1,4 +1,4 @@
-import * as AWS from 'aws-sdk'
+import { DynamoDB } from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { TodoItem } from '../../models/TodoItem'
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
@@ -42,5 +42,5 @@ export class TodoAccess {
 }
 
 function createDynamoDBClient() {
-  return new AWS.DynamoDB.DocumentClient()
+  return new DynamoDB.DocumentClient()
 }

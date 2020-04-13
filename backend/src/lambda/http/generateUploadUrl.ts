@@ -5,7 +5,7 @@ import {
   APIGatewayProxyResult,
   APIGatewayProxyHandler
 } from 'aws-lambda'
-import * as AWS from 'aws-sdk'
+import { S3 } from 'aws-sdk'
 
 const bucketName = process.env.IMAGES_S3_BUCKET
 const urlExpiration = process.env.SIGNED_URL_EXPIRATION
@@ -27,7 +27,7 @@ export const handler: APIGatewayProxyHandler = async (
 }
 
 function getUploadUrl(todoId: string) {
-  const s3 = new AWS.S3({
+  const s3 = new S3({
     signatureVersion: 'v4'
   })
 
