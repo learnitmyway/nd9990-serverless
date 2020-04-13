@@ -52,9 +52,9 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
         dueDate
       })
       this.setState({
-        todos: [...this.state.todos, newTodo],
         newTodoName: ''
       })
+      await this.fetchTodos()
     } catch (e) {
       console.error(e)
       alert('Todo creation failed')
@@ -90,7 +90,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
     }
   }
 
-  async componentDidMount() {
+  async fetchTodos() {
     try {
       const todos = await getTodos(this.props.auth.getIdToken())
       this.setState({
@@ -100,6 +100,10 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
     } catch (e) {
       alert(`Failed to fetch todos: ${e.message}`)
     }
+  }
+
+  async componentDidMount() {
+    await this.fetchTodos()
   }
 
   render() {
