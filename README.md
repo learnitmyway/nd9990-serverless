@@ -1,13 +1,20 @@
 # Serverless TODO
 
-## Useful commands
+## Auth0 Set up
 
-In `backend`:
+- callback url `http://localhost:3000/callback`
 
-- `AUTH0_TENANT=${} serverless [deploy|remove] --verbose --aws-profile serverless`
-- `OFFLINE=${} AUTH0_TENANT=${} serverless offline start --verbose --aws-profile serverless`
+## Client
+
+- Copy `.env.example` and fill in vars
+
+## Backend
+
+- `AUTH0_TENANT=${} CLIENT_ID=${} serverless [deploy|remove] --verbose --aws-profile serverless`
+- `OFFLINE=${} AUTH0_TENANT=${} CLIENT_ID=${} serverless offline start --verbose --aws-profile serverless`
 
 Where env vars look something like:
 
-- `AUTH0_TENANT=dsalfkj12.eu`
 - `OFFLINE=false`
+- `AUTH0_TENANT=dsalfkj12.eu`
+- `CLIENT_ID=ASDJALDSFJ234JADFS`

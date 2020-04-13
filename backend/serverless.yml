@@ -14,6 +14,9 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
 
+  logs:
+    restApi: true
+
   environment:
     TODOS_TABLE: Todos-${self:provider.stage}
     IMAGES_S3_BUCKET: todo-images-${self:provider.stage}
@@ -47,6 +50,7 @@ functions:
   Auth:
     handler: src/lambda/auth/auth0Authorizer.handler
 
+  # DONE: Configure this function
   GetTodos:
     handler: src/lambda/http/getTodos.handler
     events:
@@ -54,7 +58,9 @@ functions:
           method: get
           path: todos
           authorizer: Auth
+          cors: true
 
+  # DONE: Configure this function
   CreateTodo:
     handler: src/lambda/http/createTodo.handler
     events:
@@ -62,6 +68,7 @@ functions:
           method: post
           path: todos
           authorizer: Auth
+          cors: true
           request:
             schema:
               application/json: ${file(models/create-todo-request.json)}
@@ -74,6 +81,7 @@ functions:
           method: patch
           path: todos/{todoId}
           authorizer: Auth
+          cors: true
 
   # TODO: Configure this function
   DeleteTodo:
@@ -83,6 +91,7 @@ functions:
           method: delete
           path: todos/{todoId}
           authorizer: Auth
+          cors: true
 
   GenerateUploadUrl:
     handler: src/lambda/http/generateUploadUrl.handler
@@ -93,6 +102,15 @@ functions:
 
 resources:
   Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
     TodosDynamoDBTable:
       Type: AWS::DynamoDB::Table
       Properties:

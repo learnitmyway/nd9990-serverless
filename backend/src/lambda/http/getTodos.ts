@@ -15,11 +15,12 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<APIGatewayProxyResult> => {
   logger.info('Processing event: ', event)
 
-  const items = new TodoAccess().getAllTodos()
+  const items = await new TodoAccess().getAllTodos()
 
   return {
     statusCode: 200,
     headers: {
+      'Access-Control-Allow-Credentials': true,
       'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify({

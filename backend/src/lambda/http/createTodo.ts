@@ -33,6 +33,7 @@ export const handler: APIGatewayProxyHandler = async (
   return {
     statusCode: 201,
     headers: {
+      'Access-Control-Allow-Credentials': true,
       'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify({
