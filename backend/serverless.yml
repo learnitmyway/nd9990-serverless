@@ -45,6 +45,8 @@ custom:
       port: 8000
       inMemory: true
       migrate: true
+    stages:
+      - ${self:provider.stage}
 
 functions:
   Auth:

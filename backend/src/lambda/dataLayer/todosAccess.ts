@@ -40,6 +40,8 @@ function createDynamoDBClient() {
     console.log('********* Creating a local DynamoDB instance *********')
     return new AWS.DynamoDB.DocumentClient({
       region: 'localhost',
+      accessKeyId: 'accessKeyId',
+      secretAccessKey: 'secretAccessKey',
       endpoint: 'http://localhost:8000'
     })
   }
