@@ -8,6 +8,7 @@ import {
 
 import { createLogger } from '../../utils/logger'
 import { TodoAccess } from '../dataLayer/todosAccess'
+import { getUserId } from '../utils'
 const logger = createLogger('getTodos')
 
 export const handler: APIGatewayProxyHandler = async (
@@ -15,7 +16,7 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<APIGatewayProxyResult> => {
   logger.info('Processing event: ', event)
 
-  const items = await new TodoAccess().getAllTodos()
+  const items = await new TodoAccess().getAllTodos(getUserId(event))
 
   return {
     statusCode: 200,

@@ -10,8 +10,9 @@ import {
 import { createLogger } from '../../utils/logger'
 const logger = createLogger('createTodo')
 
-import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 import { TodoAccess } from '../dataLayer/todosAccess'
+import { getUserId } from '../utils'
+import { TodoItem } from '../../models/TodoItem'
 
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
@@ -21,8 +22,9 @@ export const handler: APIGatewayProxyHandler = async (
   const createdAt = new Date().toISOString()
   const todoId = uuid.v4()
   const parsedBody = JSON.parse(event.body)
-  const newTodo: CreateTodoRequest = {
+  const newTodo: TodoItem = {
     ...parsedBody,
+    userId: getUserId(event),
     createdAt,
     todoId,
     done: false

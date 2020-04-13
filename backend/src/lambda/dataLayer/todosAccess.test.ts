@@ -17,20 +17,26 @@ describe('todosAccess', () => {
     const promise = jest.fn()
     promise.mockResolvedValue({ Items: sampleTodoItems })
 
-    const scan = jest.fn()
-    scan.mockImplementation(() => {
+    const query = jest.fn()
+    query.mockImplementation(() => {
       return { promise }
     })
 
-    const dynamoDbClient: any = { scan }
+    const dynamoDbClient: any = { query }
     const todosTable = 'todos table'
-    const todoAccess = new TodoAccess(dynamoDbClient, todosTable)
+    const todoAccess = new TodoAccess(
+      dynamoDbClient,
+      todosTable,
+      'user id index'
+    )
 
-    const todoItems = await todoAccess.getAllTodos()
+    const todoItems = await todoAccess.getAllTodos('some user id')
 
-    expect(scan).toHaveBeenCalledWith({
-      TableName: todosTable
-    })
+    expect(query).toHaveBeenCalledWith(
+      expect.objectContaining({
+        TableName: todosTable
+      })
+    )
     expect(todoItems).toBe(sampleTodoItems)
   })
 })

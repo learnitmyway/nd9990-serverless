@@ -9,15 +9,21 @@ const logger = createLogger('todosAccess')
 export class TodoAccess {
   constructor(
     private readonly docClient: DocumentClient = createDynamoDBClient(),
-    private readonly todosTable = process.env.TODOS_TABLE
+    private readonly todosTable = process.env.TODOS_TABLE,
+    private readonly userIdIndex = process.env.USER_ID_INDEX
   ) {}
 
-  async getAllTodos(): Promise<TodoItem[]> {
-    logger.info('Getting all todos')
+  async getAllTodos(userId: string): Promise<TodoItem[]> {
+    logger.info('Getting all todos for userId: ' + userId)
 
     const result = await this.docClient
-      .scan({
-        TableName: this.todosTable
+      .query({
+        TableName: this.todosTable,
+        IndexName: this.userIdIndex,
+        KeyConditionExpression: 'userId = :userId',
+        ExpressionAttributeValues: {
+          ':userId': userId
+        }
       })
       .promise()
 
@@ -25,7 +31,7 @@ export class TodoAccess {
   }
 
   async createTodo(newTodo: CreateTodoRequest): Promise<void> {
-    logger.info('Creating todo')
+    logger.info('Creating new todo', newTodo)
     await this.docClient
       .put({
         TableName: this.todosTable,
