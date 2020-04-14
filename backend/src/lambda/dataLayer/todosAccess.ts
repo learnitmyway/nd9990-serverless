@@ -1,7 +1,6 @@
 import { DynamoDB } from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { TodoItem } from '../../models/TodoItem'
-import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 import { createLogger } from '../../utils/logger'
 
 const logger = createLogger('todosAccess')
@@ -30,7 +29,7 @@ export class TodoAccess {
     return result.Items as TodoItem[]
   }
 
-  async createTodo(newTodo: CreateTodoRequest): Promise<void> {
+  async createTodo(newTodo: TodoItem): Promise<void> {
     logger.info('Creating new todo', newTodo)
     await this.docClient
       .put({
@@ -40,11 +39,16 @@ export class TodoAccess {
       .promise()
   }
 
-  async updateTodo(todoId: string, userId: string, done: boolean) {
-    logger.info('Updating todo')
-    logger.info('todoId', todoId)
-    logger.info('userId', userId)
-    logger.info('done', done)
+  async updateTodo({
+    todoId,
+    userId,
+    done
+  }: {
+    todoId: string
+    userId: string
+    done: boolean
+  }) {
+    logger.info('Updating todo', { todoId, userId, done })
 
     return await this.docClient
       .update({
