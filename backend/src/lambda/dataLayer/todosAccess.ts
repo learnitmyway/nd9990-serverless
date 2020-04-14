@@ -39,6 +39,23 @@ export class TodoAccess {
       })
       .promise()
   }
+
+  async updateTodo(todoId: string, userId: string, done: boolean) {
+    logger.info('Updating todo')
+    logger.info('todoId', todoId)
+    logger.info('userId', userId)
+    logger.info('done', done)
+
+    return await this.docClient
+      .update({
+        TableName: this.todosTable,
+        Key: { todoId },
+        UpdateExpression: 'set done = :done',
+        ConditionExpression: 'userId = :userId',
+        ExpressionAttributeValues: { ':done': done, ':userId': userId }
+      })
+      .promise()
+  }
 }
 
 function createDynamoDBClient() {
