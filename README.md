@@ -10,14 +10,19 @@
 
 ## Backend
 
-### Useful commands
+### Set env vars
 
-- `AUTH0_TENANT=${} CLIENT_ID=${} serverless [deploy|offline|remove] --verbose --aws-profile serverless`
+- `export AUTH0_TENANT=${}`
+- `export CLIENT_ID=${}`
 
-Where env vars look something like:
+Examples:
 
 - `AUTH0_TENANT=dsalfkj12.eu`
 - `CLIENT_ID=ASDJALDSFJ234JADFS`
+
+### Useful commands
+
+- `serverless [deploy|offline|remove] --verbose --aws-profile serverless`
 
 ### Tests
 
