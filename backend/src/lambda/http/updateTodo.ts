@@ -18,12 +18,13 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<APIGatewayProxyResult> => {
   logger.info('Processing event ', event)
   const todoId = event.pathParameters.todoId
-  const parsedBody: UpdateTodoRequest = JSON.parse(event.body)
+  const { done, dueDate }: UpdateTodoRequest = JSON.parse(event.body)
 
   const updatedTodo = await new TodoAccess().updateTodo({
     todoId,
     userId: getUserId(event),
-    done: parsedBody.done
+    done,
+    dueDate
   })
 
   // DONE: Update a TODO item with the provided id using values in the "updatedTodo" object

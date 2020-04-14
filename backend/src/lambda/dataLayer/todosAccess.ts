@@ -42,18 +42,20 @@ export class TodoAccess {
   async updateTodo({
     todoId,
     userId,
-    done
+    done,
+    dueDate
   }: {
     todoId: string
     userId: string
     done: boolean
+    dueDate: string
   }) {
     logger.info('Updating todo', { todoId, userId, done })
 
     return await this.docClient
       .update({
         TableName: this.todosTable,
-        Key: { todoId },
+        Key: { todoId, dueDate },
         UpdateExpression: 'set done = :done',
         ConditionExpression: 'userId = :userId',
         ExpressionAttributeValues: { ':done': done, ':userId': userId }
