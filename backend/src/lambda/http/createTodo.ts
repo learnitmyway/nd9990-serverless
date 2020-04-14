@@ -1,6 +1,5 @@
 import 'source-map-support/register'
 
-import { v4 } from 'uuid'
 import {
   APIGatewayProxyEvent,
   APIGatewayProxyHandler,
@@ -10,27 +9,18 @@ import {
 import { createLogger } from '../../utils/logger'
 const logger = createLogger('createTodo')
 
-import { TodoAccess } from '../dataLayer/todosAccess'
+import { createTodo } from '../businessLogic/todoService'
 import { getUserId } from '../utils'
-import { TodoItem } from '../../models/TodoItem'
+import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 
 export const handler: APIGatewayProxyHandler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   logger.info('Processing event: ', event)
 
-  const createdAt = new Date().toISOString()
-  const todoId = v4()
-  const parsedBody = JSON.parse(event.body)
-  const newTodo: TodoItem = {
-    ...parsedBody,
-    userId: getUserId(event),
-    createdAt,
-    todoId,
-    done: false
-  }
+  const body: CreateTodoRequest = JSON.parse(event.body)
 
-  await new TodoAccess().createTodo(newTodo)
+  const newTodo = await createTodo({ body, userId: getUserId(event) })
 
   return {
     statusCode: 201,

@@ -7,8 +7,8 @@ import {
 } from 'aws-lambda'
 
 import { createLogger } from '../../utils/logger'
-import { TodoAccess } from '../dataLayer/todosAccess'
 import { getUserId } from '../utils'
+import { getAllTodos } from '../businessLogic/todoService'
 const logger = createLogger('getTodos')
 
 export const handler: APIGatewayProxyHandler = async (
@@ -16,7 +16,7 @@ export const handler: APIGatewayProxyHandler = async (
 ): Promise<APIGatewayProxyResult> => {
   logger.info('Processing event: ', event)
 
-  const items = await new TodoAccess().getAllTodos(getUserId(event))
+  const items = await getAllTodos(getUserId(event))
 
   return {
     statusCode: 200,
