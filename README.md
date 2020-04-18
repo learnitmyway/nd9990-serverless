@@ -1,5 +1,7 @@
 # Serverless TODO
 
+[Starter code](https://github.com/udacity/cloud-developer/tree/master/course-04/project/c4-final-project-starter-code)
+
 ## Auth0 Set up
 
 - callback url `http://localhost:3000/callback`
