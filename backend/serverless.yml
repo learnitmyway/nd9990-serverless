@@ -5,6 +5,7 @@ plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
   - serverless-offline
+  - serverless-plugin-tracing
 
 provider:
   name: aws
@@ -13,9 +14,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
 
-  tracing:
-    lambda: true
-    apiGateway: true
+  tracing: true # enable tracing
 
   logs:
     restApi: true
@@ -29,9 +28,10 @@ provider:
     CLIENT_ID: ${env:CLIENT_ID}
 
   iamRoleStatements:
-    - Effect: Allow
+    - Effect: 'Allow' # xray permissions (required)
       Action:
         - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
       Resource: '*'
 
 custom:
