@@ -1,15 +1,13 @@
 import { v4 } from 'uuid'
-import { S3 } from 'aws-sdk'
 
 import { TodoItem } from '../../models/TodoItem'
 import { TodoAccess } from '../dataLayer/todosAccess'
 import { CreateTodoRequest } from '../../requests/CreateTodoRequest'
 import { createLogger } from '../../utils/logger'
+import getUploadUrl from '../dataLayer/getUploadUrl'
 const url = require('url')
 
 const todoAccess = new TodoAccess()
-const bucketName = process.env.IMAGES_S3_BUCKET
-const urlExpiration = process.env.SIGNED_URL_EXPIRATION
 
 const logger = createLogger('todoService')
 
@@ -72,18 +70,6 @@ export async function updateUrl({
 
   await todoAccess.updateUrl({ todoId, userId, dueDate, attachmentUrl })
   return uploadUrl
-}
-
-function getUploadUrl(todoId: string) {
-  const s3 = new S3({
-    signatureVersion: 'v4'
-  })
-
-  return s3.getSignedUrl('putObject', {
-    Bucket: bucketName,
-    Key: todoId,
-    Expires: urlExpiration
-  })
 }
 
 export async function updateTodo({
