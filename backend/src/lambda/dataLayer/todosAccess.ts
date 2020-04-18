@@ -29,12 +29,55 @@ export class TodoAccess {
     return result.Items as TodoItem[]
   }
 
+  async getTodo({ todoId }: { todoId: string }): Promise<TodoItem> {
+    logger.info({ todoId })
+
+    const result = await this.docClient
+      .query({
+        TableName: this.todosTable,
+        KeyConditionExpression: 'todoId = :todoId',
+        ExpressionAttributeValues: {
+          ':todoId': todoId
+        }
+      })
+      .promise()
+
+    return result.Items[0] as TodoItem
+  }
+
   async createTodo(newTodo: TodoItem): Promise<void> {
     logger.info('Creating new todo', newTodo)
     await this.docClient
       .put({
         TableName: this.todosTable,
         Item: newTodo
+      })
+      .promise()
+  }
+
+  async updateUrl({
+    todoId,
+    userId,
+    dueDate,
+    attachmentUrl
+  }: {
+    todoId: string
+    userId: string
+    dueDate: string
+    attachmentUrl: string
+  }) {
+    logger.info('Updating url', { todoId, userId, attachmentUrl })
+
+    return await this.docClient
+      .update({
+        TableName: this.todosTable,
+        Key: { todoId, dueDate },
+        UpdateExpression: 'set attachmentUrl = :attachmentUrl',
+        ConditionExpression: 'userId = :userId',
+        ExpressionAttributeValues: {
+          ':attachmentUrl': attachmentUrl,
+          ':userId': userId
+        }
       })
       .promise()
   }
