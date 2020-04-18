@@ -13,6 +13,10 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
 
+  tracing:
+    lambda: true
+    apiGateway: true
+
   logs:
     restApi: true
 
@@ -23,6 +27,12 @@ provider:
     SIGNED_URL_EXPIRATION: 300
     AUTH0_TENANT: ${env:AUTH0_TENANT}
     CLIENT_ID: ${env:CLIENT_ID}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - xray:PutTraceSegments
+      Resource: '*'
 
 custom:
   serverless-offline:

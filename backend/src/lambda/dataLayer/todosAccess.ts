@@ -1,7 +1,10 @@
-import { DynamoDB } from 'aws-sdk'
+import * as AWS from 'aws-sdk'
 import { DocumentClient } from 'aws-sdk/clients/dynamodb'
 import { TodoItem } from '../../models/TodoItem'
 import { createLogger } from '../../utils/logger'
+import { captureAWS } from 'aws-xray-sdk'
+
+const XAWS = captureAWS(AWS)
 
 const logger = createLogger('todosAccess')
 
@@ -65,5 +68,5 @@ export class TodoAccess {
 }
 
 function createDynamoDBClient() {
-  return new DynamoDB.DocumentClient()
+  return new XAWS.DynamoDB.DocumentClient()
 }
