@@ -85,3 +85,14 @@ export async function updateTodo({
 }) {
   return await todoAccess.updateTodo({ todoId, userId, done, dueDate })
 }
+
+export async function deleteTodo({
+  todoId,
+  userId
+}: {
+  todoId: string
+  userId: string
+}) {
+  const { dueDate } = await getTodo({ todoId, userId })
+  return await todoAccess.deleteTodo({ todoId, userId, dueDate })
+}
