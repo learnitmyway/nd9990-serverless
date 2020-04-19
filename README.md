@@ -2,7 +2,11 @@
 
 [Starter code](https://github.com/udacity/cloud-developer/tree/master/course-04/project/c4-final-project-starter-code)
 
-## Auth0 Set up
+## Serverless Setup
+
+`sls config credentials --provider aws --key YOUR_ACCESS_KEY --secret YOUR_SECRET_KEY --profile serverless`
+
+## Auth0 Setup
 
 - callback url `http://localhost:3000/callback`
 
