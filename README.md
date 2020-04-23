@@ -4,6 +4,10 @@ A TODO app that uses [Serverless](https://serverless.com/) and is part of the [C
 
 [Link to starter code](https://github.com/udacity/cloud-developer/tree/master/course-04/project/c4-final-project-starter-code)
 
+## Project instructions
+
+All `TODO:`s have been replaced with `DONE:`s
+
 ## Serverless Setup
 
 `sls config credentials --provider aws --key YOUR_ACCESS_KEY --secret YOUR_SECRET_KEY --profile serverless`
