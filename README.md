@@ -1,6 +1,6 @@
 # Serverless Todo
 
-A Todo app that uses [Serverless](https://serverless.com/) and is part of the [Cloud Developer Nanodegree](https://www.udacity.com/course/cloud-developer-nanodegree--nd9990)
+A todo app that uses [Serverless](https://serverless.com/) and is part of the [Cloud Developer Nanodegree](https://www.udacity.com/course/cloud-developer-nanodegree--nd9990)
 
 [Link to starter code](https://github.com/udacity/cloud-developer/tree/master/course-04/project/c4-final-project-starter-code)
 
